@@ -1,0 +1,129 @@
+{
+  "run_name": "pilot",
+  "config_fingerprint": "18796c1217",
+  "started_utc": "2026-10-15T07:43:37+00:00",
+  "git_commit": "ef3d916c27ce6ffb6bb46958f482c1980713db5d",
+  "platform": "macOS-15.5-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "libraries": {
+    "python": "3.13.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "joblib": "1.6.0"
+  },
+  "planned_cells": 28,
+  "planned_result_rows": 112,
+  "config": {
+    "run_name": "pilot",
+    "dataset": {
+      "name": "synthetic",
+      "params": {
+        "n_patients": 3000,
+        "mortality_rate": 0.12,
+        "natural_missingness": true,
+        "seed": 0
+      }
+    },
+    "split": {
+      "test_size": 0.2,
+      "val_size": 0.15,
+      "stratify": true
+    },
+    "missingness": {
+      "mar_strength": 2.0,
+      "mnar_strength": 2.0,
+      "mnar_direction": "high",
+      "min_observed_per_column": 10
+    },
+    "experiment": {
+      "mechanisms": [
+        "mcar",
+        "mnar"
+      ],
+      "levels": [
+        0.1,
+        0.4,
+        0.7
+      ],
+      "imputers": [
+        "median",
+        "knn",
+        "mice",
+        "missforest"
+      ],
+      "classifiers": [
+        "logreg",
+        "xgboost"
+      ],
+      "seeds": [
+        0
+      ],
+      "include_baseline": true
+    },
+    "imputer_params": {
+      "knn": {
+        "n_neighbors": 5
+      },
+      "mice": {
+        "max_iter": 5
+      },
+      "missforest": {
+        "max_iter": 3,
+        "n_estimators": 30
+      }
+    },
+    "model_params": {},
+    "compute": {
+      "n_jobs": 4,
+      "inner_threads": 1,
+      "cache_imputations": true
+    },
+    "output_dir": "results"
+  },
+  "cohort": {
+    "source": "synthetic",
+    "n_samples": 3000,
+    "n_features": 27,
+    "prevalence": 0.123,
+    "n_maskable": 23,
+    "n_protected": 4,
+    "overall_natural_missingness": 0.09423,
+    "most_missing": [
+      {
+        "column": "lactate",
+        "frac_missing": 0.458
+      },
+      {
+        "column": "ph",
+        "frac_missing": 0.41133333333333333
+      },
+      {
+        "column": "albumin",
+        "frac_missing": 0.37933333333333336
+      },
+      {
+        "column": "bilirubin",
+        "frac_missing": 0.35233333333333333
+      },
+      {
+        "column": "inr",
+        "frac_missing": 0.30833333333333335
+      }
+    ]
+  },
+  "splits": {
+    "0": {
+      "train": 1950,
+      "val": 450,
+      "test": 600
+    }
+  },
+  "finished_seconds": 46.3,
+  "result_rows": 112,
+  "failed_rows": 0
+}

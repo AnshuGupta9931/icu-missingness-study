@@ -1,0 +1,67 @@
+{
+  "run_name": "pilot",
+  "dataset": {
+    "name": "synthetic",
+    "params": {
+      "n_patients": 3000,
+      "mortality_rate": 0.12,
+      "natural_missingness": true,
+      "seed": 0
+    }
+  },
+  "split": {
+    "test_size": 0.2,
+    "val_size": 0.15,
+    "stratify": true
+  },
+  "missingness": {
+    "mar_strength": 2.0,
+    "mnar_strength": 2.0,
+    "mnar_direction": "high",
+    "min_observed_per_column": 10
+  },
+  "experiment": {
+    "mechanisms": [
+      "mcar",
+      "mnar"
+    ],
+    "levels": [
+      0.1,
+      0.4,
+      0.7
+    ],
+    "imputers": [
+      "median",
+      "knn",
+      "mice",
+      "missforest"
+    ],
+    "classifiers": [
+      "logreg",
+      "xgboost"
+    ],
+    "seeds": [
+      0
+    ],
+    "include_baseline": true
+  },
+  "imputer_params": {
+    "knn": {
+      "n_neighbors": 5
+    },
+    "mice": {
+      "max_iter": 5
+    },
+    "missforest": {
+      "max_iter": 3,
+      "n_estimators": 30
+    }
+  },
+  "model_params": {},
+  "compute": {
+    "n_jobs": 4,
+    "inner_threads": 1,
+    "cache_imputations": true
+  },
+  "output_dir": "results"
+}

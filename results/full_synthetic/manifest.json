@@ -1,0 +1,150 @@
+{
+  "run_name": "full_synthetic",
+  "config_fingerprint": "50d2b890ed",
+  "started_utc": "2026-10-10T12:11:11+00:00",
+  "git_commit": "1a885aaedcb7edbe673426dde63ceb809d1b08ef",
+  "platform": "macOS-15.5-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "libraries": {
+    "python": "3.13.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "joblib": "1.6.0"
+  },
+  "planned_cells": 264,
+  "planned_result_rows": 2112,
+  "config": {
+    "run_name": "full_synthetic",
+    "dataset": {
+      "name": "synthetic",
+      "params": {
+        "n_patients": 8000,
+        "mortality_rate": 0.12,
+        "natural_missingness": true,
+        "seed": 0
+      }
+    },
+    "split": {
+      "test_size": 0.2,
+      "val_size": 0.15,
+      "stratify": true
+    },
+    "missingness": {
+      "mar_strength": 2.0,
+      "mnar_strength": 2.0,
+      "mnar_direction": "high",
+      "min_observed_per_column": 10
+    },
+    "experiment": {
+      "mechanisms": [
+        "mcar",
+        "mar",
+        "mnar"
+      ],
+      "levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ],
+      "imputers": [
+        "median",
+        "knn",
+        "mice",
+        "missforest"
+      ],
+      "classifiers": [
+        "logreg",
+        "xgboost",
+        "catboost",
+        "lightgbm"
+      ],
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "include_baseline": true
+    },
+    "imputer_params": {
+      "knn": {
+        "n_neighbors": 5,
+        "weights": "distance"
+      },
+      "mice": {
+        "max_iter": 10
+      },
+      "missforest": {
+        "max_iter": 5,
+        "n_estimators": 50,
+        "min_samples_leaf": 2
+      }
+    },
+    "model_params": {},
+    "compute": {
+      "n_jobs": 6,
+      "inner_threads": 1,
+      "cache_imputations": true
+    },
+    "output_dir": "results"
+  },
+  "cohort": {
+    "source": "synthetic",
+    "n_samples": 8000,
+    "n_features": 27,
+    "prevalence": 0.12162,
+    "n_maskable": 23,
+    "n_protected": 4,
+    "overall_natural_missingness": 0.09241,
+    "most_missing": [
+      {
+        "column": "lactate",
+        "frac_missing": 0.445875
+      },
+      {
+        "column": "ph",
+        "frac_missing": 0.398875
+      },
+      {
+        "column": "albumin",
+        "frac_missing": 0.374125
+      },
+      {
+        "column": "bilirubin",
+        "frac_missing": 0.3465
+      },
+      {
+        "column": "inr",
+        "frac_missing": 0.315625
+      }
+    ]
+  },
+  "splits": {
+    "0": {
+      "train": 5200,
+      "val": 1200,
+      "test": 1600
+    },
+    "1": {
+      "train": 5200,
+      "val": 1200,
+      "test": 1600
+    },
+    "2": {
+      "train": 5200,
+      "val": 1200,
+      "test": 1600
+    }
+  },
+  "finished_seconds": 3392.5,
+  "result_rows": 2112,
+  "failed_rows": 0
+}

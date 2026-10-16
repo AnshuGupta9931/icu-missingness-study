@@ -1,0 +1,78 @@
+{
+  "run_name": "full_synthetic",
+  "dataset": {
+    "name": "synthetic",
+    "params": {
+      "n_patients": 8000,
+      "mortality_rate": 0.12,
+      "natural_missingness": true,
+      "seed": 0
+    }
+  },
+  "split": {
+    "test_size": 0.2,
+    "val_size": 0.15,
+    "stratify": true
+  },
+  "missingness": {
+    "mar_strength": 2.0,
+    "mnar_strength": 2.0,
+    "mnar_direction": "high",
+    "min_observed_per_column": 10
+  },
+  "experiment": {
+    "mechanisms": [
+      "mcar",
+      "mar",
+      "mnar"
+    ],
+    "levels": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "imputers": [
+      "median",
+      "knn",
+      "mice",
+      "missforest"
+    ],
+    "classifiers": [
+      "logreg",
+      "xgboost",
+      "catboost",
+      "lightgbm"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "include_baseline": true
+  },
+  "imputer_params": {
+    "knn": {
+      "n_neighbors": 5,
+      "weights": "distance"
+    },
+    "mice": {
+      "max_iter": 10
+    },
+    "missforest": {
+      "max_iter": 5,
+      "n_estimators": 50,
+      "min_samples_leaf": 2
+    }
+  },
+  "model_params": {},
+  "compute": {
+    "n_jobs": 6,
+    "inner_threads": 1,
+    "cache_imputations": true
+  },
+  "output_dir": "results"
+}
