@@ -112,10 +112,10 @@ only. Re-run it after upgrading xgboost or lightgbm.
 | Round | Who | What | Status |
 |---|---|---|---|
 | 1 | Anshu | Repository scaffold | **done** |
-| 2 | Ankit | `utils.py` — the foundation others import | next |
-| 3 | Aditya, Ankit, Maharshi *(parallel)* | Core modules | waiting |
-| 4 | Anshu | Integration layer | waiting |
-| 5 | Everyone *(parallel)* | Scripts and tests | waiting |
+| 2 | Ankit | `utils.py` — the foundation others import | **done** |
+| 3 | Aditya, Ankit, Maharshi *(parallel)* | Core modules | **done** |
+| 4 | Anshu | Integration layer | **done** — PR open |
+| 5 | Everyone *(parallel)* | Scripts and tests | next |
 | 6 | Anshu | Full documentation and results | waiting |
 
 Rounds follow the import dependencies, so the repository is never broken
@@ -143,25 +143,70 @@ and **do not put it inside the repository folder**.
 
 ## 5. The pattern every round follows
 
+**Run these one block at a time. Do not paste the whole round in one go.**
+
+### Step 1 — get onto a fresh branch
+
 ```bash
-# 1. start from the latest main
 cd ~/Desktop/icu-missingness-study
 git checkout main
 git pull
-
-# 2. make your branch
 git checkout -b <branch-name>
+```
 
-# 3. copy YOUR files from the reference copy
-cp ~/Desktop/icumiss-source/<your files> <same path in repo>
+### Step 2 — copy YOUR files from the reference copy
 
-# 4. read what you just copied, then commit
+**This is the step that is easiest to skip, and skipping it is why a round
+fails.** Nothing you are about to commit exists in the repository yet; it only
+exists in `~/Desktop/icumiss-source/`.
+
+```bash
+cp ~/Desktop/icumiss-source/<path> <same path in repo>
+```
+
+### Step 3 — check the files are actually there
+
+```bash
+git status --short
+```
+
+You must see your files listed with `??` next to them. **If you see nothing,
+Step 2 did not happen — go back and do it.** Committing now would produce the
+error `pathspec '...' did not match any files`.
+
+### Step 4 — read what you copied, then commit
+
+Open your files and read them. You are taking responsibility for this code.
+
+```bash
 git add <your files>
-git commit -m "<message>"
+git commit -F - <<'MSG'
+<your commit message>
+MSG
+```
 
-# 5. push and open a Pull Request on GitHub
+The `-F - <<'MSG'` form takes the message from the lines that follow, up to
+`MSG`. Use it instead of `git commit -m "..."` for anything longer than one
+line: a multi-line `-m "..."` pasted into the terminal leaves the shell
+hanging at a `dquote>` prompt, waiting for a closing quote that never comes.
+
+### Step 5 — push and open a Pull Request
+
+```bash
 git push -u origin <branch-name>
 ```
+
+Then open the Pull Request on GitHub and ask a teammate to review it.
+
+### Step 6 — confirm your commit actually landed
+
+```bash
+git log main..<branch-name> --oneline
+```
+
+If that prints nothing, your branch is identical to `main` and **your commit
+does not exist**. Pushing it creates an empty branch and GitHub will show no
+contribution from you.
 
 ---
 
@@ -176,13 +221,15 @@ git checkout -b feat/numeric-utilities
 cp ~/Desktop/icumiss-source/src/icumiss/utils.py src/icumiss/utils.py
 
 git add src/icumiss/utils.py
-git commit -m "feat: add numeric helpers for controlled masking
+git commit -F - <<'MSG'
+feat: add numeric helpers for controlled masking
 
 Numerically stable sigmoid, a bisection solver for hitting an exact event
 rate, logistic noise, and noisy top-k selection. Adding logistic noise to a
 score and taking the top k is equivalent to sampling k cells without
 replacement under a logit model on that score, which is how an exact
-missingness level is achieved."
+missingness level is achieved.
+MSG
 
 git push -u origin feat/numeric-utilities
 ```
@@ -204,7 +251,8 @@ mkdir -p src/icumiss/data
 cp ~/Desktop/icumiss-source/src/icumiss/data/*.py src/icumiss/data/
 
 git add src/icumiss/data/
-git commit -m "feat: add cohort container, synthetic generator and MIMIC-IV extraction
+git commit -F - <<'MSG'
+feat: add cohort container, synthetic generator and MIMIC-IV extraction
 
 Cohort validates on construction that the matrix is numeric, the outcome
 binary, and the protected columns complete, since MAR conditioning depends on
@@ -218,7 +266,8 @@ MIMIC-IV extraction streams chartevents and labevents in chunks, filters to
 the 24-hour window, drops physiologically impossible values, and caches the
 result. Two leakage guards are enforced: patients who die inside the
 observation window are excluded, and nothing recorded after the window is
-read."
+read.
+MSG
 
 git push -u origin feat/data-layer
 ```
@@ -244,7 +293,8 @@ cp ~/Desktop/icumiss-source/src/icumiss/missingness.py src/icumiss/
 cp ~/Desktop/icumiss-source/src/icumiss/splits.py src/icumiss/
 
 git add src/icumiss/missingness.py src/icumiss/splits.py
-git commit -m "feat: add controlled MCAR/MAR/MNAR masking and leakage-safe splits
+git commit -F - <<'MSG'
+feat: add controlled MCAR/MAR/MNAR masking and leakage-safe splits
 
 Each mechanism is imposed by masking values that were originally recorded, so
 the condition is known by construction and the masked values provide the
@@ -253,7 +303,8 @@ eligible, so ground truth is never invented where none existed. Protected
 demographic columns are never masked, which is what makes the MAR scenario
 genuinely missing-at-random given observed data.
 
-Splitting happens before masking and before any imputer is fitted."
+Splitting happens before masking and before any imputer is fitted.
+MSG
 
 git push -u origin feat/missingness-mechanisms
 ```
@@ -280,7 +331,8 @@ cp ~/Desktop/icumiss-source/src/icumiss/models.py src/icumiss/
 cp ~/Desktop/icumiss-source/src/icumiss/metrics.py src/icumiss/
 
 git add src/icumiss/imputation.py src/icumiss/models.py src/icumiss/metrics.py
-git commit -m "feat: add the four imputers, four classifiers and both metric stages
+git commit -F - <<'MSG'
+feat: add the four imputers, four classifiers and both metric stages
 
 Every imputer is fitted on training rows only and applied unchanged to
 validation and test. The outcome is never shown to an imputer, and imputation
@@ -291,7 +343,8 @@ missing-value handling cannot confound the imputation comparison.
 
 Imputation metrics are scored only on artificially masked cells, in both
 original and standardised units, and the decision threshold for F1 and
-precision is selected on validation rather than fixed at 0.5."
+precision is selected on validation rather than fixed at 0.5.
+MSG
 
 git push -u origin feat/imputation-models-metrics
 ```
@@ -306,7 +359,8 @@ mkdir -p src/icumiss/analysis
 cp ~/Desktop/icumiss-source/src/icumiss/analysis/*.py src/icumiss/analysis/
 
 git add src/icumiss/analysis/
-git commit -m "feat: add summary tables and the figure set
+git commit -F - <<'MSG'
+feat: add summary tables and the figure set
 
 Ten tables including reconstruction_vs_downstream, which ranks the imputers
 twice per condition and compares the two rankings - the project's central
@@ -314,7 +368,8 @@ analysis. Near-tied conditions are flagged against seed-level noise so they
 are not over-read.
 
 Figures use a colourblind-safe palette with distinct markers and line styles,
-so series identity never rests on colour alone."
+so series identity never rests on colour alone.
+MSG
 
 git push -u origin feat/analysis-tables-figures
 ```
@@ -333,7 +388,8 @@ cp ~/Desktop/icumiss-source/src/icumiss/runner.py src/icumiss/
 mkdir -p configs && cp ~/Desktop/icumiss-source/configs/*.yaml configs/
 
 git add src/icumiss/experiment.py src/icumiss/runner.py configs/
-git commit -m "feat: add cell execution and resumable grid orchestration
+git commit -F - <<'MSG'
+feat: add cell execution and resumable grid orchestration
 
 One cell runs mask, impute, classify, score. The four classifiers share the
 imputed matrices, which cuts the expensive MissForest stage fourfold and
@@ -342,7 +398,8 @@ guarantees they are compared on identical data.
 The grid is resumable and fail-soft: finished cells are logged as they land,
 and a failing cell is recorded with its traceback rather than killing the run.
 Worker threads are capped so the OpenMP pools inside the boosters do not
-oversubscribe the machine."
+oversubscribe the machine.
+MSG
 
 git push -u origin feat/experiment-runner
 ```
@@ -412,11 +469,13 @@ cp -R ~/Desktop/icumiss-source/results .
 .venv/bin/python -m pytest      # expect 102 passed
 
 git add README.md START_HERE.md RESULTS.md CHANGELOG.md results/
-git commit -m "docs: add full documentation and the factorial result set
+git commit -F - <<'MSG'
+docs: add full documentation and the factorial result set
 
 264 cells, 2,112 result rows, zero failures. The best-reconstructing imputer
 was also the best predictor in only 59.5% of conditions, and 46.4% under MNAR,
-which is the dissociation the study was designed to detect."
+which is the dissociation the study was designed to detect.
+MSG
 
 git push -u origin docs/documentation-and-results
 ```
@@ -466,6 +525,28 @@ lock file.
 **`git pull` refuses: "untracked working tree files would be overwritten"**
 You have a local copy of a file that a merged PR is now bringing in. Delete
 your local copy and pull again.
+
+**`fatal: pathspec 'src/icumiss/...' did not match any files`**
+You skipped Step 2 — the file is not in the repository yet. Copy it from
+`~/Desktop/icumiss-source/` first, confirm with `git status --short`, then add
+it.
+
+**The terminal is stuck showing `dquote>`**
+A multi-line `git commit -m "..."` was pasted and the shell is still waiting
+for the closing quote. Press **Ctrl-C** to escape, then use the
+`git commit -F - <<'MSG'` form instead.
+
+**`fatal: a branch named '...' already exists`**
+You already created it. Switch to it rather than recreating it:
+```bash
+git checkout <branch-name>
+```
+
+**My branch is on GitHub but shows no commit from me**
+The commit never happened — most likely Step 2 was skipped, so there was
+nothing to commit and `git push` published a branch identical to `main`.
+Check with `git log main..<branch-name> --oneline`; if it is empty, redo
+Steps 2 to 4 on that same branch and push again.
 
 **You committed to the wrong branch**
 ```bash
