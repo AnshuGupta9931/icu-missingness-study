@@ -1,0 +1,63 @@
+# The full factorial design on MIMIC-IV - the project's primary result set.
+#
+# Before the first run:
+#   1. point dataset.params.root at your local MIMIC-IV distribution
+#      (the directory holding hosp/ and icu/)
+#   2. python scripts/verify_mimic.py --root <that path>
+#      and keep its itemid report with the results - itemids differ between
+#      MIMIC versions, and a silently wrong itemid is the easiest way to
+#      produce a confident wrong answer
+#   3. python scripts/profile_cohort.py --config configs/full_mimic.yaml
+#      to see the cohort size, outcome prevalence and natural missingness
+#
+# Extraction streams chartevents and labevents once and caches the result, so
+# only the first run pays that cost.
+run_name: full_mimic
+
+dataset:
+  name: mimic
+  params:
+    root: /path/to/mimic-iv        # <- set this
+    observation_hours: 24
+    aggregation: mean              # mean | last | first | min | max
+    target: icu_mortality          # icu_mortality | hospital_mortality
+    min_feature_completeness: 0.30
+    rebuild: false
+
+split:
+  test_size: 0.20
+  val_size: 0.15
+  stratify: true
+
+missingness:
+  mar_strength: 2.0
+  mnar_strength: 2.0
+  mnar_direction: high
+  min_observed_per_column: 10
+
+experiment:
+  mechanisms: [mcar, mar, mnar]
+  levels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+  imputers: [median, knn, mice, missforest]
+  classifiers: [logreg, xgboost, catboost, lightgbm]
+  seeds: [0, 1, 2]
+  include_baseline: true
+
+imputer_params:
+  knn:
+    n_neighbors: 5
+    weights: distance
+  mice:
+    max_iter: 10
+  missforest:
+    max_iter: 5
+    n_estimators: 50
+    min_samples_leaf: 2
+
+compute:
+  # MIMIC-IV cohorts are much larger than the synthetic one, so MissForest gets
+  # slower and memory per worker goes up. Lower n_jobs if the machine swaps.
+  n_jobs: 4
+  inner_threads: 1
+
+output_dir: results
