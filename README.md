@@ -300,7 +300,6 @@ Everything the proposal's section 18 asks for:
   recorded with `status="failed"` and its traceback, and the rest of the grid
   completes — a run that silently dropped failures would be worse than one that
   reports them.
-* **`CHANGELOG.md`** records every change with date, author, what and why.
 * **Patient-level data is never committed.**
 
 ---

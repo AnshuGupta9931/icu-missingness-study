@@ -181,7 +181,6 @@ MIMIC-IV.
 START_HERE.md      <- you are reading this
 README.md          the technical manual (read it second)
 RESULTS.md         findings from the simulator run
-CHANGELOG.md       a dated log of every change, which your proposal asks for
 
 Project_102_revised.pdf    your original proposal
 
@@ -289,8 +288,7 @@ method won would have been wrong. The tables mark those cases.
 **"Is this your own work?"**
 Be straightforward: you specified the project, and the implementation was
 written with AI assistance, which you reviewed. Say so if asked — most
-institutions now have a disclosure policy, and the `CHANGELOG.md` documents
-what was done and why. Check your university's rules.
+institutions now have a disclosure policy. Check your university's rules.
 
 ---
 
