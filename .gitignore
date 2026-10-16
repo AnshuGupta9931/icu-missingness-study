@@ -1,0 +1,39 @@
+# --- Patient-level data must never be committed (see README, Reproducibility) ---
+data/raw/
+data/interim/
+data/processed/
+*.csv.gz
+*.parquet
+!results/**/*.parquet
+
+# MIMIC-IV / eICU source files
+**/mimiciv/
+**/eicu/
+*.csv.gz
+
+# Results: keep tables/figures/manifests, drop large caches and intermediates
+cache/
+results/**/cache/
+results/**/*.partial.csv
+# Append-only per-cell log: large, rewritten on every run, and a guaranteed
+# merge conflict when two people run experiments. Everything in it is also in
+# results.csv / results.parquet, which are tracked.
+results/**/cells.jsonl
+*.joblib
+*.pkl
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+build/
+dist/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "icumiss"
+version = "0.1.0"
+description = "Impact of missing data mechanisms and imputation strategies on ML-based ICU mortality prediction"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.1",
+    "pandas>=2.2",
+    "scipy>=1.14",
+    "scikit-learn>=1.6",
+    "xgboost>=2.1",
+    "lightgbm>=4.5",
+    "catboost>=1.2.7",
+    "matplotlib>=3.9",
+    "pyyaml>=6.0",
+    "joblib>=1.4",
+    "pyarrow>=17",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+# Puts src/ on the path, so `pytest` works from the project root without an
+# editable install or a PYTHONPATH export.
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    # Expected at high missingness: the iterative imputers stop on max_iter
+    # rather than on the tolerance. Recorded in the run log, not a failure.
+    "ignore::sklearn.exceptions.ConvergenceWarning",
+]
