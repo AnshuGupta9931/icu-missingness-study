@@ -37,3 +37,7 @@ dist/
 .DS_Store
 .vscode/
 .idea/
+
+# macOS AppleDouble sidecars. These once replaced the whole data package:
+# only ._cohort.py and friends were committed, never the real modules.
+._*
