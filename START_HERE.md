@@ -138,8 +138,9 @@ you are doing — before you touch the real aircraft.
 - They **do** prove the machinery works end to end, which is genuinely
   valuable, and is exactly what your proposal calls a "pilot study" (section 12
   says "A pilot study will be run first to validate the pipeline").
-- When MIMIC-IV access arrives, you change one line in a settings file and run
-  the same command. The real results come out the other end.
+- **The real run is now done.** The full 264-cell grid has been run on the
+  MIMIC-IV cohort — 51,666 patients, 0 failures. Those are findings about real
+  patients, and they are in `RESULTS.md`.
 
 ---
 
@@ -149,14 +150,19 @@ The file `RESULTS.md` has numbers in it. Here is what they mean, and how much
 to trust them.
 
 **The main finding.** Across 84 different situations, the imputation method
-that guessed missing values most accurately was *also* the method that
-predicted death best only **59.5% of the time**. Under MNAR — the nasty case —
-only **46.4%**, which is worse than flipping a coin.
+that guessed missing values most accurately was *also* the method that predicted
+death best only **25% of the time on MIMIC-IV** — 21 of 84. On the synthetic
+cohort the same figure was **59.5%**, and under MNAR there it was 46.4%.
 
-In plain terms: **choosing your gap-filling method by how accurately it fills
-gaps picks the wrong method about a third of the time.** That is the answer to
-your proposal's fourth research question, and it is a real result rather than a
-boring confirmation.
+In plain terms: **on real patient data, choosing your gap-filling method by how
+accurately it fills gaps picks the wrong method three times out of four.** That
+is the answer to your proposal's fourth research question, and it is a real
+result rather than a boring confirmation.
+
+There is a sharper version of the same point in the MIMIC-IV results. The
+simplest method of all — filling every gap with the column median — was *never*
+the best at reconstructing the missing values, in any of the 84 conditions. Yet
+it was the best predictor of death in 51 of them.
 
 **A second finding worth knowing.** AUROC is the standard score people quote
 for this kind of model. It dropped by only about 6% as the data got worse. But
@@ -180,7 +186,7 @@ MIMIC-IV.
 ```
 START_HERE.md      <- you are reading this
 README.md          the technical manual (read it second)
-RESULTS.md         findings from the simulator run
+RESULTS.md         findings from the MIMIC-IV and simulator runs
 
 Project_102_revised.pdf    your original proposal
 
@@ -196,7 +202,7 @@ src/icumiss/       the actual code, in pieces:
 configs/           settings files - which experiment to run
     pilot.yaml           small and quick, for checking things work
     full_synthetic.yaml  the full experiment on fake data (already run)
-    full_mimic.yaml      the full experiment on real data (for later)
+    full_mimic.yaml      the full experiment on real data (already run)
 
 scripts/           the commands you actually type
 results/           everything that came out: tables and graphs
@@ -207,10 +213,11 @@ tests/             102 automatic checks that the code is correct
 
 ## 8. What you should actually do
 
-### Right now, before access arrives
+### Right now
 
-**You do not need to run anything.** The experiment has already been run once
-on the fake data and the output is sitting in `results/full_synthetic/`.
+**You do not need to run anything.** Both experiments have already been run —
+the fake-data output is in `results/full_synthetic/` and the real MIMIC-IV
+output is in `results/full_mimic/`.
 
 What is genuinely worth your time:
 
@@ -218,7 +225,7 @@ What is genuinely worth your time:
    is the part your teacher will test you on. The code is less important than
    understanding why the project is set up this way.
 2. **Look at one picture.** Open
-   `results/full_synthetic/figures/auroc_vs_level.png`. Left to right the three
+   `results/full_mimic/figures/auroc_vs_level.png`. Left to right the three
    panels are the three kinds of missingness. Going right within each panel
    means more missing data. Going down means worse prediction. That one image
    is most of your results chapter.
@@ -229,13 +236,16 @@ What is genuinely worth your time:
 If you want to prove to yourself the thing runs, this takes about a minute:
 
 ```
-cd /Users/anshugupta/Desktop/102-Project
+cd ~/Desktop/icu-missingness-study
 .venv/bin/python scripts/run_experiments.py --config configs/pilot.yaml
 ```
 
 Nothing is harmed by running it. It writes to `results/pilot/` and nowhere else.
 
-### When your teacher gives you MIMIC-IV access
+### How the MIMIC-IV run was done
+
+This has already been run; the output is in `results/full_mimic/`. The steps are
+kept here so the run can be reproduced or repeated on a new machine.
 
 1. Download MIMIC-IV from PhysioNet. It is large — tens of gigabytes.
 2. Open `configs/full_mimic.yaml` and change the line
