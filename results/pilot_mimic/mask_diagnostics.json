@@ -1,0 +1,242 @@
+[
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.0038040198929147045,
+      "corr_with_conditioner": -2.598161502409284e-05,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.0038040198929147045,
+      "corr_with_conditioner": -2.598161502409284e-05,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.004331110873074295,
+      "corr_with_conditioner": -0.0025670535447895517,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.0038040198929147045,
+      "corr_with_conditioner": -2.598161502409284e-05,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.004331110873074295,
+      "corr_with_conditioner": -0.0025670535447895517,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.004331110873074295,
+      "corr_with_conditioner": -0.0025670535447895517,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.001315386442183004,
+      "corr_with_conditioner": 0.001206568141214207,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.001315386442183004,
+      "corr_with_conditioner": 0.001206568141214207,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.001315386442183004,
+      "corr_with_conditioner": 0.001206568141214207,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.004331110873074295,
+      "corr_with_conditioner": -0.0025670535447895517,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.5080170512309907,
+      "corr_with_conditioner": -0.004880918155712335,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.0038040198929147045,
+      "corr_with_conditioner": -2.598161502409284e-05,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.5080170512309907,
+      "corr_with_conditioner": -0.004880918155712335,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.5080170512309907,
+      "corr_with_conditioner": -0.004880918155712335,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.522023943435313,
+      "corr_with_conditioner": -0.008918537452796336,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mcar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.001315386442183004,
+      "corr_with_conditioner": 0.001206568141214207,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.522023943435313,
+      "corr_with_conditioner": -0.008918537452796336,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.4457659661055674,
+      "corr_with_conditioner": -0.007627971893493523,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.522023943435313,
+      "corr_with_conditioner": -0.008918537452796336,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.4457659661055674,
+      "corr_with_conditioner": -0.007627971893493523,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.4457659661055674,
+      "corr_with_conditioner": -0.007627971893493523,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.4,
+      "corr_with_hidden_value": 0.522023943435313,
+      "corr_with_conditioner": -0.008918537452796336,
+      "n_columns_masked": 22,
+      "realised_level": 0.40000381919911393
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.7,
+      "corr_with_hidden_value": 0.4457659661055674,
+      "corr_with_conditioner": -0.007627971893493523,
+      "n_columns_masked": 22,
+      "realised_level": 0.6999971356006646
+    }
+  },
+  {
+    "mask_check_test": {
+      "mechanism": "mnar",
+      "requested_level": 0.1,
+      "corr_with_hidden_value": 0.5080170512309907,
+      "corr_with_conditioner": -0.004880918155712335,
+      "n_columns_masked": 22,
+      "realised_level": 0.10001050279756335
+    }
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "run_name": "full_mimic",
+  "dataset": {
+    "name": "mimic",
+    "params": {
+      "root": "data/raw/mimic-iv",
+      "observation_hours": 24,
+      "aggregation": "mean",
+      "target": "icu_mortality",
+      "min_feature_completeness": 0.3,
+      "rebuild": false
+    }
+  },
+  "split": {
+    "test_size": 0.2,
+    "val_size": 0.15,
+    "stratify": true
+  },
+  "missingness": {
+    "mar_strength": 2.0,
+    "mnar_strength": 2.0,
+    "mnar_direction": "high",
+    "min_observed_per_column": 10
+  },
+  "experiment": {
+    "mechanisms": [
+      "mcar",
+      "mar",
+      "mnar"
+    ],
+    "levels": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "imputers": [
+      "median",
+      "knn",
+      "mice",
+      "missforest"
+    ],
+    "classifiers": [
+      "logreg",
+      "xgboost",
+      "catboost",
+      "lightgbm"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "include_baseline": true
+  },
+  "imputer_params": {
+    "knn": {
+      "n_neighbors": 5,
+      "weights": "distance"
+    },
+    "mice": {
+      "max_iter": 10
+    },
+    "missforest": {
+      "max_iter": 5,
+      "n_estimators": 50,
+      "min_samples_leaf": 2
+    }
+  },
+  "model_params": {},
+  "compute": {
+    "n_jobs": 1,
+    "inner_threads": 4,
+    "cache_imputations": true
+  },
+  "output_dir": "results"
+}

@@ -1,0 +1,50 @@
+# Pilot run on MIMIC-IV - the proposal's section 12 pilot, against the real
+# cohort instead of the synthetic one. Same reduced grid as configs/pilot.yaml
+# (one mechanism pair, three levels, one seed, two classifiers), so it
+# validates the pipeline on real data and measures per-cell cost before the
+# full factorial is committed to.
+run_name: pilot_mimic
+
+dataset:
+  name: mimic
+  params:
+    root: data/raw/mimic-iv
+    observation_hours: 24
+    aggregation: mean
+    target: icu_mortality
+    min_feature_completeness: 0.30
+    rebuild: false
+
+split:
+  test_size: 0.20
+  val_size: 0.15
+  stratify: true
+
+missingness:
+  mar_strength: 2.0
+  mnar_strength: 2.0
+  mnar_direction: high
+  min_observed_per_column: 10
+
+experiment:
+  mechanisms: [mcar, mnar]
+  levels: [0.1, 0.4, 0.7]
+  imputers: [median, knn, mice, missforest]
+  classifiers: [logreg, xgboost]
+  seeds: [0]
+  include_baseline: true
+
+imputer_params:
+  knn:
+    n_neighbors: 5
+  mice:
+    max_iter: 5
+  missforest:
+    max_iter: 3
+    n_estimators: 30
+
+compute:
+  n_jobs: 4
+  inner_threads: 1
+
+output_dir: results

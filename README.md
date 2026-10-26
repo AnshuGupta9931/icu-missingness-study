@@ -12,9 +12,9 @@ and asks the question that only shows up when you join them: **does the method
 that reconstructs missing values most accurately also give the best mortality
 prediction?**
 
-On the synthetic cohort the answer is *only about two-thirds of the time, and
-barely better than chance under MNAR*. See **[RESULTS.md](RESULTS.md)** for the
-full findings from the completed 264-cell run.
+On MIMIC-IV the answer is *a quarter of the time* — 21 of 84 conditions. On the
+synthetic cohort it was 59.5%. See **[RESULTS.md](RESULTS.md)** for the full
+findings from both completed 264-cell runs.
 
 ---
 
@@ -399,6 +399,13 @@ resumable, so stopping it costs only the cells in flight.
 
 **Memory pressure.** Lower `compute.n_jobs`; each worker holds its own copy of
 the cohort and the fitted forests.
+
+On the MIMIC-IV cohort (51,666 rows) a full-size MissForest cell peaks at about
+**7 GB**, because `IterativeImputer` keeps one fitted forest per column per
+iteration. Parallel workers therefore exhaust 16 GB. Use `n_jobs: 1` with
+`inner_threads: 4`, which gives that one cell several cores instead of running
+several cells at once. `configs/full_mimic_windows.yaml` is exactly that
+variant, and the full 264-cell grid completed in 2.6 hours with it.
 
 **A cell failed.** Its traceback is in `results/<run>/cells.jsonl` under the row
 with `status="failed"`. Fix the cause and re-run the same command — completed

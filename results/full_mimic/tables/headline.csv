@@ -1,0 +1,13 @@
+quantity,value
+test-split results (cells x classifiers),1056.0
+"mean AUROC, no artificial missingness",0.900813831276649
+"mean AUROC, 10% missing",0.889800353880347
+"mean AUROC, 70% missing",0.791210171815671
+"mean AUPRC, 10% missing",0.4490428770488838
+"mean AUPRC, 70% missing",0.2834022287528689
+"mean Brier, 10% missing",0.04822125935121891
+"mean Brier, 70% missing",0.055882787317109384
+"median Spearman rho, reconstruction vs AUROC",-0.39999999999999997
+conditions where best imputer agrees across stages,0.25
+conditions where imputer choice beats seed noise,81.0
+"...of those, best imputer agrees across stages",0.24691358024691357

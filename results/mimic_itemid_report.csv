@@ -1,0 +1,49 @@
+variable,table,itemid,found,label,unit
+heart_rate,chartevents,220045,True,Heart Rate,bpm
+sbp,chartevents,220179,True,Non Invasive Blood Pressure systolic,mmHg
+sbp,chartevents,220050,True,Arterial Blood Pressure systolic,mmHg
+dbp,chartevents,220180,True,Non Invasive Blood Pressure diastolic,mmHg
+dbp,chartevents,220051,True,Arterial Blood Pressure diastolic,mmHg
+map_mmhg,chartevents,220181,True,Non Invasive Blood Pressure mean,mmHg
+map_mmhg,chartevents,220052,True,Arterial Blood Pressure mean,mmHg
+map_mmhg,chartevents,225312,True,ART BP Mean,mmHg
+resp_rate,chartevents,220210,True,Respiratory Rate,insp/min
+resp_rate,chartevents,224690,True,Respiratory Rate (Total),insp/min
+temperature,chartevents,223762,True,Temperature Celsius,°C
+temperature_f,chartevents,223761,True,Temperature Fahrenheit,°F
+spo2,chartevents,220277,True,O2 saturation pulseoxymetry,%
+gcs_eye,chartevents,220739,True,GCS - Eye Opening,
+gcs_verbal,chartevents,223900,True,GCS - Verbal Response,
+gcs_motor,chartevents,223901,True,GCS - Motor Response,
+urine_output_24h,outputevents,226559,True,Foley,mL
+urine_output_24h,outputevents,226560,True,Void,mL
+urine_output_24h,outputevents,226561,True,Condom Cath,mL
+urine_output_24h,outputevents,226584,True,Ileoconduit,mL
+urine_output_24h,outputevents,226563,True,Suprapubic,mL
+urine_output_24h,outputevents,226564,True,R Nephrostomy,mL
+urine_output_24h,outputevents,226565,True,L Nephrostomy,mL
+urine_output_24h,outputevents,226567,True,Straight Cath,mL
+urine_output_24h,outputevents,226557,True,R Ureteral Stent,mL
+urine_output_24h,outputevents,226558,True,L Ureteral Stent,mL
+urine_output_24h,outputevents,227488,True,GU Irrigant Volume In,mL
+urine_output_24h,outputevents,227489,True,GU Irrigant/Urine Volume Out,mL
+lactate,labevents,50813,True,Lactate,Blood
+creatinine,labevents,50912,True,Creatinine,Blood
+bun,labevents,51006,True,Urea Nitrogen,Blood
+sodium,labevents,50983,True,Sodium,Blood
+sodium,labevents,50824,True,"Sodium, Whole Blood",Blood
+potassium,labevents,50971,True,Potassium,Blood
+potassium,labevents,50822,True,"Potassium, Whole Blood",Blood
+bicarbonate,labevents,50882,True,Bicarbonate,Blood
+bicarbonate,labevents,50803,True,"Calculated Bicarbonate, Whole Blood",Blood
+wbc,labevents,51301,True,White Blood Cells,Blood
+wbc,labevents,51300,True,WBC Count,Blood
+hemoglobin,labevents,51222,True,Hemoglobin,Blood
+hemoglobin,labevents,50811,True,Hemoglobin,Blood
+platelets,labevents,51265,True,Platelet Count,Blood
+glucose,labevents,50931,True,Glucose,Blood
+glucose,labevents,50809,True,Glucose,Blood
+albumin,labevents,50862,True,Albumin,Blood
+bilirubin,labevents,50885,True,"Bilirubin, Total",Blood
+inr,labevents,51237,True,INR(PT),Blood
+ph,labevents,50820,True,pH,Blood

@@ -1,19 +1,85 @@
-# Results — full factorial run on the synthetic cohort
+# Results — full factorial runs on MIMIC-IV and the synthetic cohort
 
-Run `full_synthetic`, 264 cells → 2,112 result rows, 0 failures, 56.5 minutes
-on 6 workers. Cohort: 8,000 patients, 27 features, 12.2% mortality, 9.2% of
-cells missing before any masking. Split 5,200 / 1,200 / 1,600.
+Two complete 264-cell runs: **MIMIC-IV**, the project's primary result set, and
+the **synthetic** cohort, on which the pipeline and the analysis were developed.
 
-**These are results on the synthetic cohort, not on MIMIC-IV.** They
-demonstrate that the pipeline answers the proposal's five research questions
-and establish what the analysis looks like. The headline findings of the
-project come from re-running `configs/full_mimic.yaml` once MIMIC-IV access is
-in place. Every number below is reproducible with
-`python scripts/run_experiments.py --config configs/full_synthetic.yaml`.
+| | MIMIC-IV | synthetic |
+|---|---|---|
+| cells → result rows | 264 → 2,112 | 264 → 2,112 |
+| failures | 0 | 0 |
+| cohort | 51,666 patients, 26 features | 8,000 patients, 27 features |
+| mortality | 6.8% | 12.2% |
+| missing before masking | 6.6% | 9.2% |
+| runtime | 2.6 h | 56.5 min |
+
+The MIMIC-IV run is reported in the next section. Sections 1–5 after it report
+the synthetic run, where the analysis was built; those numbers remain true of
+the synthetic cohort and are kept for comparison, not superseded.
+
+Reproduce with `python scripts/run_experiments.py --config configs/full_mimic.yaml`
+and `--config configs/full_synthetic.yaml` respectively.
 
 ---
 
-## The five research questions
+## MIMIC-IV full grid — the primary result set
+
+Run `full_mimic`, 264 cells → 2,112 result rows, 0 failures, 9,380 seconds
+(2.6 hours). Cohort: 51,666 patients, 26 features (22 maskable, 4 protected),
+6.8% ICU mortality, 6.6% of cells missing before any masking. Adults, first ICU
+stay only, first 24 hours after admission; patients who died inside the
+observation window are excluded.
+
+| | no masking | 10% masked | 70% masked |
+|---|---|---|---|
+| AUROC | 0.901 | 0.890 | 0.791 |
+| AUPRC | — | 0.449 | 0.283 |
+| Brier | — | 0.0482 | 0.0559 |
+
+**Does better imputation accuracy mean better mortality prediction?** On
+MIMIC-IV the method that reconstructs best is the method that predicts best in
+**25.0%** of conditions — 21 of 84. The median Spearman correlation between
+reconstruction error and AUROC is **−0.40**. Restricting to the 81 conditions
+where the imputers are separated by more than seed noise gives **24.7%**
+(20 of 81).
+
+The sharpest single illustration: **median imputation was never the best
+reconstructor in any of the 84 conditions, yet it was the best predictor in 51
+of them.** The best reconstructor was always MICE (44 conditions) or MissForest
+(40). The best predictor was most often median (51), then MissForest (26), then
+MICE (7).
+
+Agreement by mechanism, out of 28 conditions each:
+
+| mechanism | best-method agreement | median rho |
+|---|---|---|
+| MCAR | 35.7% (10 / 28) | −0.8 |
+| MAR | 21.4% (6 / 28) | −0.8 |
+| **MNAR** | **17.9% (5 / 28)** | **−0.2** |
+
+An earlier reduced MIMIC pilot (`results/pilot_mimic/`: 2 mechanisms, 3 levels,
+1 seed, 2 classifiers) gave 58.3% agreement and is superseded by this run. The
+two figures are not directly comparable — the pilot sampled a much smaller and
+different set of conditions — and no explanation for the size of the gap is
+offered here.
+
+### Compute and platform notes
+
+The grid, imputer settings and seeds are identical to `configs/full_mimic.yaml`;
+only compute settings differ. The run used `configs/full_mimic_windows.yaml`
+with `n_jobs: 1` and `inner_threads: 4`, because a full-size MissForest cell on
+this cohort peaks at about 7 GB and parallel workers exhausted 16 GB of RAM.
+MissForest results do not depend on thread count; LightGBM may differ in the
+last decimal places from a single-threaded run.
+
+The run executed on Windows 11 under Python 3.12.1 with pandas 3.1.0 and numpy
+2.5.4, and `results/full_mimic/manifest.json` records those versions. The first
+27 of the 264 cells were computed earlier on macOS (Python 3.13, pandas 3.0.6)
+and carried over in `cells.jsonl`, so the manifest's version block does not
+describe every cell in the set.
+
+---
+
+## The five research questions — synthetic cohort
 
 ### 1. How does increasing missingness affect performance?
 
@@ -90,7 +156,8 @@ mean better prediction. But the method that reconstructs best is the method
 that predicts best in only **59.5%** of conditions, and restricting to the 46
 conditions where the imputers are separated by more than seed noise only raises
 that to 67.4%. A third of the time, picking the imputer by reconstruction error
-picks the wrong one.
+picks the wrong one. On the MIMIC-IV cohort the same figure is **25.0%** (21 of
+84) — see the MIMIC-IV section above.
 
 The agreement depends strongly on the mechanism:
 

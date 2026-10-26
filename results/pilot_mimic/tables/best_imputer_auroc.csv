@@ -1,0 +1,13 @@
+mechanism,level,classifier,metric,best_imputer,best_value,best_seed_sd,runner_up,margin,margin_exceeds_seed_sd
+mcar,0.1,logreg,auroc,missforest,0.8762540710846785,,mice,0.0032164519021994353,False
+mcar,0.4,logreg,auroc,missforest,0.8492846101198904,,mice,0.013081309591239432,False
+mcar,0.7,logreg,auroc,missforest,0.7848825580572075,,mice,0.018790120834513258,False
+mcar,0.1,xgboost,auroc,missforest,0.8988564087133013,,mice,0.0004948727933542507,False
+mcar,0.4,xgboost,auroc,missforest,0.8648374811196072,,mice,0.0008013841687906087,False
+mcar,0.7,xgboost,auroc,missforest,0.8002045130038704,,median,0.0022815037052770215,False
+mnar,0.1,logreg,auroc,missforest,0.8717704203247427,,mice,0.004073592230718459,False
+mnar,0.4,logreg,auroc,missforest,0.8628566624185784,,median,0.012881590437081258,False
+mnar,0.7,logreg,auroc,missforest,0.8223310794864532,,median,0.00021528072783905117,False
+mnar,0.1,xgboost,auroc,median,0.8958730854101764,,missforest,0.0007330164967431774,False
+mnar,0.4,xgboost,auroc,median,0.887751640234117,,missforest,0.010190544463324902,False
+mnar,0.7,xgboost,auroc,median,0.858073727933541,,mice,0.019676909279712995,False

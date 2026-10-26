@@ -17,7 +17,7 @@ run_name: full_mimic
 dataset:
   name: mimic
   params:
-    root: /path/to/mimic-iv        # <- set this
+    root: data/raw/mimic-iv       # relative to the repo root
     observation_hours: 24
     aggregation: mean              # mean | last | first | min | max
     target: icu_mortality          # icu_mortality | hospital_mortality

@@ -1,0 +1,62 @@
+Itemid report - MIMIC-IV copy at data/raw/mimic-iv
+Generated 2026-10-24 10:32 UTC
+Every itemid configured in src/icumiss/data/mimic.py, resolved against
+this release's d_items / d_labitems. Keep this with any result set.
+
+d_items: 4,095 rows   d_labitems: 1,650 rows
+
+CHARTEVENTS (vitals / GCS)
+  heart_rate       220045  Heart Rate                             [bpm]
+  sbp              220179  Non Invasive Blood Pressure systolic   [mmHg]
+  sbp              220050  Arterial Blood Pressure systolic       [mmHg]
+  dbp              220180  Non Invasive Blood Pressure diastolic  [mmHg]
+  dbp              220051  Arterial Blood Pressure diastolic      [mmHg]
+  map_mmhg         220181  Non Invasive Blood Pressure mean       [mmHg]
+  map_mmhg         220052  Arterial Blood Pressure mean           [mmHg]
+  map_mmhg         225312  ART BP Mean                            [mmHg]
+  resp_rate        220210  Respiratory Rate                       [insp/min]
+  resp_rate        224690  Respiratory Rate (Total)               [insp/min]
+  temperature      223762  Temperature Celsius                    [°C]
+  temperature_f    223761  Temperature Fahrenheit                 [°F]
+  spo2             220277  O2 saturation pulseoxymetry            [%]
+  gcs_eye          220739  GCS - Eye Opening                      [nan]
+  gcs_verbal       223900  GCS - Verbal Response                  [nan]
+  gcs_motor        223901  GCS - Motor Response                   [nan]
+
+OUTPUTEVENTS (urine output, summed over 24h)
+  urine            226559  Foley                                  [mL]
+  urine            226560  Void                                   [mL]
+  urine            226561  Condom Cath                            [mL]
+  urine            226584  Ileoconduit                            [mL]
+  urine            226563  Suprapubic                             [mL]
+  urine            226564  R Nephrostomy                          [mL]
+  urine            226565  L Nephrostomy                          [mL]
+  urine            226567  Straight Cath                          [mL]
+  urine            226557  R Ureteral Stent                       [mL]
+  urine            226558  L Ureteral Stent                       [mL]
+  urine            227488  GU Irrigant Volume In                  [mL]
+  urine            227489  GU Irrigant/Urine Volume Out           [mL]
+
+LABEVENTS
+  lactate           50813  Lactate                                [Blood]
+  creatinine        50912  Creatinine                             [Blood]
+  bun               51006  Urea Nitrogen                          [Blood]
+  sodium            50983  Sodium                                 [Blood]
+  sodium            50824  Sodium, Whole Blood                    [Blood]
+  potassium         50971  Potassium                              [Blood]
+  potassium         50822  Potassium, Whole Blood                 [Blood]
+  bicarbonate       50882  Bicarbonate                            [Blood]
+  bicarbonate       50803  Calculated Bicarbonate, Whole Blood    [Blood]
+  wbc               51301  White Blood Cells                      [Blood]
+  wbc               51300  WBC Count                              [Blood]
+  hemoglobin        51222  Hemoglobin                             [Blood]
+  hemoglobin        50811  Hemoglobin                             [Blood]
+  platelets         51265  Platelet Count                         [Blood]
+  glucose           50931  Glucose                                [Blood]
+  glucose           50809  Glucose                                [Blood]
+  albumin           50862  Albumin                                [Blood]
+  bilirubin         50885  Bilirubin, Total                       [Blood]
+  inr               51237  INR(PT)                                [Blood]
+  ph                50820  pH                                     [Blood]
+
+unresolved itemids: 0

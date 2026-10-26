@@ -1,0 +1,152 @@
+{
+  "run_name": "full_mimic",
+  "config_fingerprint": "113074d4d0",
+  "started_utc": "2026-10-26T03:09:33+00:00",
+  "git_commit": null,
+  "platform": "Windows-11-10.0.22631-SP0",
+  "machine": "AMD64",
+  "libraries": {
+    "python": "3.12.1",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "joblib": "1.6.0"
+  },
+  "planned_cells": 264,
+  "planned_result_rows": 2112,
+  "config": {
+    "run_name": "full_mimic",
+    "dataset": {
+      "name": "mimic",
+      "params": {
+        "root": "data/raw/mimic-iv",
+        "observation_hours": 24,
+        "aggregation": "mean",
+        "target": "icu_mortality",
+        "min_feature_completeness": 0.3,
+        "rebuild": false
+      }
+    },
+    "split": {
+      "test_size": 0.2,
+      "val_size": 0.15,
+      "stratify": true
+    },
+    "missingness": {
+      "mar_strength": 2.0,
+      "mnar_strength": 2.0,
+      "mnar_direction": "high",
+      "min_observed_per_column": 10
+    },
+    "experiment": {
+      "mechanisms": [
+        "mcar",
+        "mar",
+        "mnar"
+      ],
+      "levels": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ],
+      "imputers": [
+        "median",
+        "knn",
+        "mice",
+        "missforest"
+      ],
+      "classifiers": [
+        "logreg",
+        "xgboost",
+        "catboost",
+        "lightgbm"
+      ],
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "include_baseline": true
+    },
+    "imputer_params": {
+      "knn": {
+        "n_neighbors": 5,
+        "weights": "distance"
+      },
+      "mice": {
+        "max_iter": 10
+      },
+      "missforest": {
+        "max_iter": 5,
+        "n_estimators": 50,
+        "min_samples_leaf": 2
+      }
+    },
+    "model_params": {},
+    "compute": {
+      "n_jobs": 1,
+      "inner_threads": 4,
+      "cache_imputations": true
+    },
+    "output_dir": "results"
+  },
+  "cohort": {
+    "source": "mimic-iv",
+    "n_samples": 51666,
+    "n_features": 26,
+    "prevalence": 0.06815,
+    "n_maskable": 22,
+    "n_protected": 4,
+    "overall_natural_missingness": 0.06614,
+    "most_missing": [
+      {
+        "column": "bilirubin",
+        "frac_missing": 0.5642588936631441
+      },
+      {
+        "column": "lactate",
+        "frac_missing": 0.4040181163627918
+      },
+      {
+        "column": "ph",
+        "frac_missing": 0.37709518832501066
+      },
+      {
+        "column": "inr",
+        "frac_missing": 0.14686641117949908
+      },
+      {
+        "column": "temperature",
+        "frac_missing": 0.0315875043548949
+      }
+    ]
+  },
+  "splits": {
+    "0": {
+      "train": 33582,
+      "val": 7750,
+      "test": 10334
+    },
+    "1": {
+      "train": 33582,
+      "val": 7750,
+      "test": 10334
+    },
+    "2": {
+      "train": 33582,
+      "val": 7750,
+      "test": 10334
+    }
+  },
+  "finished_seconds": 9380.3,
+  "result_rows": 2112,
+  "failed_rows": 0
+}

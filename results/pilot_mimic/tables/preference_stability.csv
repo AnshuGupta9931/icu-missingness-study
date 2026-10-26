@@ -1,0 +1,13 @@
+scope,stratum,best_imputer,wins,share
+mechanism,mcar,missforest,6,0.5
+mechanism,mnar,median,3,0.25
+mechanism,mnar,missforest,3,0.25
+classifier,logreg,missforest,6,0.5
+classifier,xgboost,median,3,0.25
+classifier,xgboost,missforest,3,0.25
+level,0.1,median,1,0.08333333333333333
+level,0.1,missforest,3,0.25
+level,0.4,median,1,0.08333333333333333
+level,0.4,missforest,3,0.25
+level,0.7,median,1,0.08333333333333333
+level,0.7,missforest,3,0.25
