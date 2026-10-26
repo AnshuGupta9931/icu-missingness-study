@@ -13,8 +13,9 @@ that reconstructs missing values most accurately also give the best mortality
 prediction?**
 
 On MIMIC-IV the answer is *a quarter of the time* — 21 of 84 conditions. On the
-synthetic cohort it was 59.5%. See **[RESULTS.md](RESULTS.md)** for the full
-findings from both completed 264-cell runs.
+synthetic cohort it was 59.5%. **[FINDINGS.md](FINDINGS.md)** puts every result
+from both 264-cell runs in one table; **[RESULTS.md](RESULTS.md)** is the full
+write-up.
 
 ---
 

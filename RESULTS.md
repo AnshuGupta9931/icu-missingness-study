@@ -3,6 +3,9 @@
 Two complete 264-cell runs: **MIMIC-IV**, the project's primary result set, and
 the **synthetic** cohort, on which the pipeline and the analysis were developed.
 
+**For every finding condensed into a single table, see
+[FINDINGS.md](FINDINGS.md)** (machine-readable: `results/findings_summary.csv`).
+
 | | MIMIC-IV | synthetic |
 |---|---|---|
 | cells → result rows | 264 → 2,112 | 264 → 2,112 |

@@ -1,0 +1,44 @@
+# Findings summary — all results in one table
+
+Every finding from both completed runs, in a single table. The **MIMIC-IV**
+column is the primary result set (264 cells, 2,112 result rows, 0 failures,
+51,666 patients); the **synthetic** column is the earlier validation run on
+8,000 simulated patients, kept for comparison.
+
+`RQ1`–`RQ5` are the five research questions of the project proposal. Every
+number is taken directly from the committed result files named in the **Source**
+column, under `results/full_mimic/tables/` and
+`results/full_synthetic/tables/`. The machine-readable version of this table is
+[`results/findings_summary.csv`](results/findings_summary.csv).
+
+| # | Finding | MIMIC-IV | Synthetic | Source |
+|---|---|---|---|---|
+| run | Cells → result rows (failures) | 264 → 2112 (0 failed) | 264 → 2112 (0 failed) | `manifest.json` |
+| run | Cohort | 51,666 patients, 26 features | 8,000 patients, 27 features | `manifest.json` |
+| run | Mortality prevalence | 6.82% | 12.16% | `manifest.json` |
+| run | Natural missingness before masking | 6.61% | 9.24% | `manifest.json` |
+| run | Runtime | 2.6 h | 57 min | `manifest.json` |
+| RQ1 missingness level | Mean AUROC: none / 10% / 70% masked | 0.901 / 0.890 / 0.791 | 0.858 / 0.857 / 0.808 | `headline.csv` |
+| RQ1 missingness level | Mean AUPRC: 10% → 70% masked | 0.449 → 0.283 (-36.9%) | 0.517 → 0.407 (-21.2%) | `headline.csv` |
+| RQ1 missingness level | Mean Brier: 10% → 70% masked | 0.0482 → 0.0559 | 0.0791 → 0.0885 | `headline.csv` |
+| RQ2 mechanism | Mean AUROC at 70% masked: MCAR / MAR / MNAR | 0.785 / 0.758 / 0.831 | 0.824 / 0.778 / 0.823 | `mechanism_comparison.csv` |
+| RQ3 best imputer | Wins by downstream AUROC (of 84 conditions) | median 51, missforest 26, mice 7 | mice 40, missforest 26, median 14, knn 4 | `reconstruction_vs_downstream.csv` |
+| RQ3 best imputer | Wins by reconstruction error (of 84 conditions) | mice 44, missforest 40 | mice 48, missforest 36 | `reconstruction_vs_downstream.csv` |
+| RQ4 reconstruction vs prediction | Best reconstructor is also best predictor | 25.0% (21 of 84) | 59.5% (50 of 84) | `reconstruction_vs_downstream.csv` |
+| RQ4 reconstruction vs prediction | Median Spearman rho, reconstruction error vs AUROC | -0.40 | -0.80 | `headline.csv` |
+| RQ4 reconstruction vs prediction | Agreement where imputer choice exceeds seed noise | 24.7% (20 of 81) | 67.4% (31 of 46) | `reconstruction_vs_downstream.csv` |
+| RQ4 reconstruction vs prediction | Agreement by mechanism: MCAR / MAR / MNAR | 35.7% / 21.4% / 17.9% | 53.6% / 78.6% / 46.4% | `reconstruction_vs_downstream.csv` |
+| RQ4 reconstruction vs prediction | Median rho by mechanism: MCAR / MAR / MNAR | -0.80 / -0.80 / -0.20 | -0.80 / -0.80 / -0.40 | `reconstruction_vs_downstream.csv` |
+| RQ4 reconstruction vs prediction | Median imputation: times best reconstructor / best predictor | 0 of 84 / 51 of 84 | 0 of 84 / 14 of 84 | `reconstruction_vs_downstream.csv` |
+| RQ5 imputer x classifier | Imputer preferred by each classifier (most wins) | catboost median, lightgbm median, logreg missforest, xgboost median | catboost mice, lightgbm median=missforest, logreg mice, xgboost mice | `preference_stability.csv` |
+
+## The central result in one line
+
+Reconstruction accuracy and downstream usefulness come apart. The imputer that
+reconstructs missing values most accurately is the imputer that predicts
+mortality best in **25.0%** of the 84 MIMIC-IV conditions. Median imputation was
+never the most accurate reconstructor in any condition, yet was the best
+predictor in 51 of them.
+
+Full detail, per-question discussion and the compute/platform notes are in
+[RESULTS.md](RESULTS.md).

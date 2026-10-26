@@ -186,6 +186,7 @@ MIMIC-IV.
 ```
 START_HERE.md      <- you are reading this
 README.md          the technical manual (read it second)
+FINDINGS.md        every result from both runs, in one table
 RESULTS.md         findings from the MIMIC-IV and simulator runs
 
 Project_102_revised.pdf    your original proposal
